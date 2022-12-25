@@ -1,30 +1,35 @@
+USE SYSTEM
+GO
+DROP DATABASE covid_nds
+GO
+
 CREATE DATABASE covid_nds
 GO
 USE covid_nds
 GO
 
-CREATE TABLE city
+CREATE TABLE [phu_city]
 (
     id INT IDENTITY,
     [name] NVARCHAR(50),
+    phu_group_id INT,
 
-    CONSTRAINT pk__city PRIMARY KEY (id)
+    CONSTRAINT pk__phu_city PRIMARY KEY (id)
 )
 GO
 
 
-CREATE TABLE phu_group
+CREATE TABLE [phu_group]
 (
     id INT IDENTITY,
     phu_group_name NVARCHAR(100),
-    city_id INT,
 
     CONSTRAINT pk__phu_group PRIMARY KEY (id)
 )
 GO
 
 
-CREATE TABLE outbreak_group
+CREATE TABLE [outbreak_group]
 (
     id INT IDENTITY,
     outbreak_group NVARCHAR(50),
@@ -34,7 +39,7 @@ CREATE TABLE outbreak_group
 GO
 
 
-CREATE TABLE ongoing_outbreaks_phu
+CREATE TABLE [ongoing_outbreaks_phu]
 (
     id INT IDENTITY,
     [date] DATE,
@@ -46,7 +51,7 @@ CREATE TABLE ongoing_outbreaks_phu
 GO
 
 
-CREATE TABLE vaccines_by_age_phu 
+CREATE TABLE [vaccines_by_age_phu] 
 (
     id INT IDENTITY,
     [date] DATE,
@@ -62,7 +67,7 @@ CREATE TABLE vaccines_by_age_phu
 GO
 
 
-CREATE TABLE outcome
+CREATE TABLE [outcome]
 (
     id INT IDENTITY,
     outcome NVARCHAR(50),
@@ -72,7 +77,7 @@ CREATE TABLE outcome
 GO
 
 
-CREATE TABLE exposure
+CREATE TABLE [exposure]
 (
     id INT IDENTITY,
     exposure NVARCHAR(50),
@@ -82,7 +87,7 @@ CREATE TABLE exposure
 GO
 
 
-CREATE TABLE age_group
+CREATE TABLE [age_group]
 (
     id INT IDENTITY,
     age_group NVARCHAR(50),
@@ -107,7 +112,7 @@ CREATE TABLE [case]
 GO
 
 
-CREATE TABLE public_health_unit
+CREATE TABLE [public_health_unit]
 (
     id INT IDENTITY,
     [name] NVARCHAR(100),
@@ -138,9 +143,9 @@ ALTER TABLE [case]
 GO
 
 
-ALTER TABLE [phu_group]
-    ADD CONSTRAINT fk__phu_group__city
-    FOREIGN KEY (city_id) REFERENCES city (id)
+ALTER TABLE [phu_city]
+    ADD CONSTRAINT fk__phu_city__phu_group
+    FOREIGN KEY (phu_group_id) REFERENCES phu_group (id)
 GO
 
 
