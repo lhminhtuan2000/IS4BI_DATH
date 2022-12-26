@@ -115,6 +115,7 @@ GO
 CREATE TABLE [public_health_unit]
 (
     id INT IDENTITY,
+    phu_nk INT UNIQUE,
     [name] NVARCHAR(255),
     [address] NVARCHAR(255),
     phu_group_id INT,
