@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="12/24/2022 4:20:18 PM"
@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Source_Stage"
   DTS:PackageType="5"
-  DTS:VersionBuild="19"
-  DTS:VersionGUID="{A40B61DC-DC4C-41AE-801D-5B7F6E95B4A1}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{6BF57E8A-618A-4DDC-BA21-CAC2A704D716}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -302,7 +302,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -314,7 +314,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -326,7 +326,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -705,7 +705,7 @@ where [refTable].[phu_group_name] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\phu_city Flow\23:invalid};</property>
+                  name="ParameterMap">#{Package\phu_city Flow\467:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -902,7 +902,7 @@ where [refTable].[phu_group_name] = ?</property>
                     <externalMetadataColumn
                       refId="Package\phu_city Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
                       dataType="wstr"
-                      length="255"
+                      length="50"
                       name="name" />
                     <externalMetadataColumn
                       refId="Package\phu_city Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phu_group_id]"
@@ -1157,7 +1157,7 @@ from [Trang Tính1$A1:A35]</property>
                     <externalMetadataColumn
                       refId="Package\phu_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phu_group_name]"
                       dataType="wstr"
-                      length="255"
+                      length="100"
                       name="phu_group_name" />
                   </externalMetadataColumns>
                 </input>

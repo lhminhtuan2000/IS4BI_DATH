@@ -1,4 +1,4 @@
-USE SYSTEM
+USE tempdb
 GO
 DROP DATABASE covid_nds
 GO
@@ -11,7 +11,7 @@ GO
 CREATE TABLE [phu_city]
 (
     id INT IDENTITY,
-    [name] NVARCHAR(50),
+    [name] NVARCHAR(255),
     phu_group_id INT,
 
     CONSTRAINT pk__phu_city PRIMARY KEY (id)
@@ -22,7 +22,7 @@ GO
 CREATE TABLE [phu_group]
 (
     id INT IDENTITY,
-    phu_group_name NVARCHAR(100),
+    phu_group_name NVARCHAR(255),
 
     CONSTRAINT pk__phu_group PRIMARY KEY (id)
 )
@@ -32,7 +32,7 @@ GO
 CREATE TABLE [outbreak_group]
 (
     id INT IDENTITY,
-    outbreak_group NVARCHAR(50),
+    outbreak_group NVARCHAR(255),
 
     CONSTRAINT pk__outbreak_group PRIMARY KEY (id)
 )
@@ -70,7 +70,7 @@ GO
 CREATE TABLE [outcome]
 (
     id INT IDENTITY,
-    outcome NVARCHAR(50),
+    outcome NVARCHAR(255),
 
     CONSTRAINT pk__outcome PRIMARY KEY (id)
 )
@@ -80,7 +80,7 @@ GO
 CREATE TABLE [exposure]
 (
     id INT IDENTITY,
-    exposure NVARCHAR(50),
+    exposure NVARCHAR(255),
 
     CONSTRAINT pk__exposure PRIMARY KEY (id)
 )
@@ -90,7 +90,7 @@ GO
 CREATE TABLE [age_group]
 (
     id INT IDENTITY,
-    age_group NVARCHAR(50),
+    age_group NVARCHAR(255),
 
     CONSTRAINT pk__age_group PRIMARY KEY (id)
 )
@@ -102,7 +102,7 @@ CREATE TABLE [case]
     id INT IDENTITY,
     reported_date DATE,
     reporting_phu_id INT,
-    gender NVARCHAR(50),
+    gender NVARCHAR(255),
     age_group_id INT,
     exposure_id INT,
     outcome_id INT
@@ -115,11 +115,11 @@ GO
 CREATE TABLE [public_health_unit]
 (
     id INT IDENTITY,
-    [name] NVARCHAR(100),
-    [address] NVARCHAR(1000),
+    [name] NVARCHAR(255),
+    [address] NVARCHAR(255),
     phu_group_id INT,
     postal_code VARCHAR(10),
-    website NVARCHAR(1000),
+    website NVARCHAR(255),
     latitude FLOAT,
     longitude FLOAT,
 
