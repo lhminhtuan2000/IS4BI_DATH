@@ -144,8 +144,8 @@ CREATE TABLE [public_health_unit]
     
     [name] NVARCHAR(255),
     [address] NVARCHAR(255),
-    phu_group_id INT,
-    postal_code VARCHAR(10),
+    phu_city_id INT,
+    postal_code NVARCHAR(255),
     website NVARCHAR(255),
     latitude FLOAT,
     longitude FLOAT,
@@ -205,8 +205,8 @@ GO
 
 
 ALTER TABLE [public_health_unit]
-    ADD CONSTRAINT fk__public_health_unit__phu_group
-    FOREIGN KEY (phu_group_id) REFERENCES phu_group (id)
+    ADD CONSTRAINT fk__public_health_unit__phu_city
+    FOREIGN KEY (phu_city_id) REFERENCES phu_city (id)
 ALTER TABLE [public_health_unit]
     ADD CONSTRAINT fk__public_health_unit__source
     FOREIGN KEY (source_id) REFERENCES source (id)
@@ -253,3 +253,27 @@ ALTER TABLE [age_group]
     ADD CONSTRAINT fk__age_group__source
     FOREIGN KEY (source_id) REFERENCES source (id)
 GO
+
+
+----------------------------------------------------------
+
+
+INSERT INTO source (name) VALUES ('Cases Report.csv')
+INSERT INTO source (name) VALUES ('Compiled_COVID-19_Case_Details_Canada.csv')
+INSERT INTO source (name) VALUES ('ongoing_outbreaks_phu.csv')
+INSERT INTO source (name) VALUES ('Public health unit.csv')
+INSERT INTO source (name) VALUES ('Public Health Units GROUP.csv')
+INSERT INTO source (name) VALUES ('vaccines_by_age_phu.csv')
+
+
+-- DELETE FROM phu_city
+-- DELETE FROM phu_group
+-- DELETE FROM outbreak_group
+-- DELETE FROM ongoing_outbreaks_phu
+-- DELETE FROM vaccines_by_age_phu
+-- DELETE FROM outcome
+-- DELETE FROM exposure
+-- DELETE FROM age_group
+-- DELETE FROM [case]
+-- DELETE FROM public_health_unit
+-- DELETE FROM source
