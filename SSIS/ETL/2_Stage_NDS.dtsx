@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="20"
-  DTS:VersionGUID="{49CEE9A1-9D6C-4E8E-9D5F-02DB333BE7C1}">
+  DTS:VersionBuild="41"
+  DTS:VersionGUID="{52784C9D-F514-4ECE-9F60-B254554563F5}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -40,6 +40,18 @@
           DTS:ConnectionString="Data Source=DESKTOP-NBFA5B0;Initial Catalog=covid_stage;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{22B55042-66C0-41DF-84A6-56A3B72E137A}DESKTOP-NBFA5B0.covid_stage;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage_fail]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E6D0A44C-206F-449B-A9A6-81610B9D6097}"
+      DTS:ObjectName="DESKTOP-NBFA5B0.covid_stage_fail">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-NBFA5B0;Initial Catalog=covid_stage_fail;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{E6D0A44C-206F-449B-A9A6-81610B9D6097}DESKTOP-NBFA5B0.covid_stage_fail;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
@@ -63,6 +75,7 @@
       DTS:refId="Package\Clean compiled_covid_19_case_details"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{C34C6F8E-4433-4D51-B509-FD196D0F5FC0}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -120,7 +133,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CF891C80-0BC1-4CCC-BD0B-1186C357E9FF}"
-          SQLTask:SqlStatementSource="DELETE FROM phu_city&#xA;DELETE FROM phu_group&#xA;DELETE FROM outbreak_group&#xA;DELETE FROM ongoing_outbreaks_phu&#xA;DELETE FROM vaccines_by_age_phu&#xA;DELETE FROM outcome&#xA;DELETE FROM exposure&#xA;DELETE FROM age_group&#xA;DELETE FROM [case]&#xA;DELETE FROM public_health_unit" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM vaccines_by_age_phu&#xA;DELETE FROM vba_age_group&#xA;&#xA;DELETE FROM public_health_unit&#xA;DELETE FROM phu_city&#xA;DELETE FROM phu_group&#xA;&#xA;DELETE FROM outbreak_group&#xA;DELETE FROM ongoing_outbreaks_phu&#xA;DELETE FROM outcome&#xA;DELETE FROM exposure&#xA;DELETE FROM age_group&#xA;DELETE FROM [case]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -1887,6 +1900,1452 @@ where [refTable].[name] = ?</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\vaccines_by_age_phu Flow"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A4BE0C56-83C9-47C8-8AB1-F125A720E571}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="vaccines_by_age_phu Flow"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\Add source_id Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Add source_id Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Add source_id Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      name="source_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">6</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">6</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Add source_id Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Output].Columns[error_description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Output].Columns[error_description]"
+                      name="error_description"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">"No match phu_id"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">"No match phu_id"</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Load vaccines_by_age_phu Table From Stage"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[vaccines_by_age_phu]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[date]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[date]"
+                      name="date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[phu_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[phu_id]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[phu_id]"
+                      name="phu_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[age_group]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[age_group]"
+                      length="255"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[age_group]"
+                      name="age_group"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[at_least_one_dose_cumulative]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[at_least_one_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[at_least_one_dose_cumulative]"
+                      name="at_least_one_dose_cumulative"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[Second_dose_cumulative]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[Second_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[Second_dose_cumulative]"
+                      name="Second_dose_cumulative"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[fully_vaccinated_cumulative]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[fully_vaccinated_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[fully_vaccinated_cumulative]"
+                      name="fully_vaccinated_cumulative"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[third_dose_cumulative]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[third_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[third_dose_cumulative]"
+                      name="third_dose_cumulative"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[date]"
+                      dataType="dbDate"
+                      name="date" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[phu_id]"
+                      dataType="i4"
+                      name="phu_id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      name="age_group" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[at_least_one_dose_cumulative]"
+                      dataType="i4"
+                      name="at_least_one_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[Second_dose_cumulative]"
+                      dataType="i4"
+                      name="Second_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[fully_vaccinated_cumulative]"
+                      dataType="i4"
+                      name="fully_vaccinated_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].ExternalColumns[third_dose_cumulative]"
+                      dataType="i4"
+                      name="third_dose_cumulative" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[date]"
+                      dataType="dbDate"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[date]"
+                      name="date" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[phu_id]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[phu_id]"
+                      name="phu_id" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[age_group]"
+                      name="age_group" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[at_least_one_dose_cumulative]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[at_least_one_dose_cumulative]"
+                      name="at_least_one_dose_cumulative" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[Second_dose_cumulative]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[Second_dose_cumulative]"
+                      name="Second_dose_cumulative" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[fully_vaccinated_cumulative]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[fully_vaccinated_cumulative]"
+                      name="fully_vaccinated_cumulative" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[third_dose_cumulative]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[third_dose_cumulative]"
+                      name="third_dose_cumulative" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[public_health_unit]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[public_health_unit]) [refTable]
+where [refTable].[phu_nk] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="phu_nk" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="source_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="name" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="address" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="phu_city_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="postal_code" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="website" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="latitude" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="longitude" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[phu_id]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vaccines_by_age_phu Flow\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input].Columns[phu_id]"
+                      cachedDataType="i4"
+                      cachedName="phu_id"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[phu_id]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">phu_nk</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Match Output].Columns[nds_phu_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Match Output].Columns[nds_phu_id]"
+                      name="nds_phu_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup age_group_id"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[vba_age_group]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[vba_age_group]) [refTable]
+where [refTable].[age_group] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="source_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="age_group" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[age_group]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input].Columns[age_group]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="age_group"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[age_group]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">age_group</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Match Output].Columns[age_group_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Match Output].Columns[age_group_id]"
+                      name="age_group_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[vaccines_by_age_phu]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[date]"
+                      cachedDataType="dbDate"
+                      cachedName="date"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[date]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[date]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[at_least_one_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="at_least_one_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[at_least_one_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[at_least_one_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Second_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="Second_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[second_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[Second_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fully_vaccinated_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="fully_vaccinated_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fully_vaccinated_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[fully_vaccinated_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[third_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="third_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[third_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[third_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[age_group_id]"
+                      cachedDataType="i4"
+                      cachedName="age_group_id"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age_group_id]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Match Output].Columns[age_group_id]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[source_id]"
+                      cachedDataType="i4"
+                      cachedName="source_id"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[source_id]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nds_phu_id]"
+                      cachedDataType="i4"
+                      cachedName="nds_phu_id"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phu_id]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Match Output].Columns[nds_phu_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[date]"
+                      dataType="dbDate"
+                      name="date" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phu_id]"
+                      dataType="i4"
+                      name="phu_id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age_group_id]"
+                      dataType="i4"
+                      name="age_group_id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[source_id]"
+                      dataType="i4"
+                      name="source_id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[at_least_one_dose_cumulative]"
+                      dataType="i4"
+                      name="at_least_one_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[second_dose_cumulative]"
+                      dataType="i4"
+                      name="second_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fully_vaccinated_cumulative]"
+                      dataType="i4"
+                      name="fully_vaccinated_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[third_dose_cumulative]"
+                      dataType="i4"
+                      name="third_dose_cumulative" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination 1"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[vaccines_by_age_phu]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage_fail]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage_fail]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[date]"
+                      cachedDataType="dbDate"
+                      cachedName="date"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[date]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[date]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[phu_id]"
+                      cachedDataType="i4"
+                      cachedName="phu_id"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[phu_id]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[phu_id]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[age_group]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="age_group"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[age_group]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[age_group]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[at_least_one_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="at_least_one_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[at_least_one_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[at_least_one_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Second_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="Second_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Second_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[Second_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[fully_vaccinated_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="fully_vaccinated_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[fully_vaccinated_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[fully_vaccinated_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[third_dose_cumulative]"
+                      cachedDataType="i4"
+                      cachedName="third_dose_cumulative"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[third_dose_cumulative]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output].Columns[third_dose_cumulative]" />
+                    <inputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[error_description]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="error_description"
+                      externalMetadataColumnId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[error_description]"
+                      lineageId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Output].Columns[error_description]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[date]"
+                      dataType="dbDate"
+                      name="date" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[phu_id]"
+                      dataType="i4"
+                      name="phu_id" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      name="age_group" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[at_least_one_dose_cumulative]"
+                      dataType="i4"
+                      name="at_least_one_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Second_dose_cumulative]"
+                      dataType="i4"
+                      name="Second_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[fully_vaccinated_cumulative]"
+                      dataType="i4"
+                      name="fully_vaccinated_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[third_dose_cumulative]"
+                      dataType="i4"
+                      name="third_dose_cumulative" />
+                    <externalMetadataColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[error_description]"
+                      dataType="wstr"
+                      length="255"
+                      name="error_description" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[Derived Column Output]"
+              endId="Package\vaccines_by_age_phu Flow\Lookup.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\vaccines_by_age_phu Flow\Add source_id Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[Derived Column Output1]"
+              endId="Package\vaccines_by_age_phu Flow\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\vaccines_by_age_phu Flow\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[Lookup Match Output]"
+              endId="Package\vaccines_by_age_phu Flow\Add source_id Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[Lookup Match Output1]"
+              endId="Package\vaccines_by_age_phu Flow\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[Lookup No Match Output]"
+              endId="Package\vaccines_by_age_phu Flow\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup No Match Output"
+              startId="Package\vaccines_by_age_phu Flow\Lookup.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\vaccines_by_age_phu Flow.Paths[OLE DB Source Output]"
+              endId="Package\vaccines_by_age_phu Flow\Lookup age_group_id.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\vba_age_group Flow"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E34D84F1-40C0-4B03-801D-1007BDE38392}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="vba_age_group Flow"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\vba_age_group Flow\Add source_id Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Add source_id Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\vba_age_group Flow\Add source_id Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\vba_age_group Flow\Add source_id Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      name="source_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">6</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">6</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\vba_age_group Flow\Add source_id Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Load vaccines_by_age_phu From Stage"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[vaccines_by_age_phu]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT distinct age_group
+FROM vaccines_by_age_phu</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output].Columns[age_group]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output].ExternalColumns[age_group]"
+                      length="255"
+                      lineageId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output].Columns[age_group]"
+                      name="age_group"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output].ExternalColumns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      name="age_group" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[age_group]"
+                      name="age_group" />
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\vba_age_group Flow\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[vba_age_group]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\vba_age_group Flow\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NBFA5B0.covid_nds]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[age_group]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="age_group"
+                      externalMetadataColumnId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age_group]"
+                      lineageId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output].Columns[age_group]" />
+                    <inputColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[source_id]"
+                      cachedDataType="i4"
+                      cachedName="source_id"
+                      externalMetadataColumnId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[source_id]"
+                      lineageId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[source_id]"
+                      dataType="i4"
+                      name="source_id" />
+                    <externalMetadataColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age_group]"
+                      dataType="wstr"
+                      length="255"
+                      name="age_group" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\vba_age_group Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\vba_age_group Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\vba_age_group Flow\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\vba_age_group Flow.Paths[Derived Column Output]"
+              endId="Package\vba_age_group Flow\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\vba_age_group Flow\Add source_id Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\vba_age_group Flow.Paths[OLE DB Source Output]"
+              endId="Package\vba_age_group Flow\Add source_id Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -1945,6 +3404,30 @@ where [refTable].[name] = ?</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 6"
       DTS:To="Package\public_health_unit Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{24337D72-1685-405A-AE5D-2C41B83E45D2}"
+      DTS:From="Package\public_health_unit Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\vba_age_group Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{5B818FDD-B572-42BB-8296-C2FC1A7867AE}"
+      DTS:From="Package\Clean cases_report"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\phu_group Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{A14837AD-3E2D-4BE2-B80B-044EB7F14B89}"
+      DTS:From="Package\vba_age_group Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\vaccines_by_age_phu Flow" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1957,23 +3440,23 @@ where [refTable].[name] = ?</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="168,42"
           Id="Package\Clean cases_report"
-          TopLeft="406,194" />
+          TopLeft="654,110" />
         <NodeLayout
           Size="261,42"
           Id="Package\Clean compiled_covid_19_case_details"
-          TopLeft="361,277" />
+          TopLeft="863,107" />
         <NodeLayout
           Size="195,42"
           Id="Package\Clean public_health_unit"
-          TopLeft="389,26" />
+          TopLeft="74,113" />
         <NodeLayout
           Size="232,42"
           Id="Package\Clean public_health_units_group"
-          TopLeft="371,113" />
+          TopLeft="334,114" />
         <NodeLayout
           Size="143,42"
           Id="Package\Delete Tables"
@@ -1981,29 +3464,37 @@ where [refTable].[name] = ?</property>
         <NodeLayout
           Size="144,42"
           Id="Package\phu_city Flow"
-          TopLeft="420,485" />
+          TopLeft="522,238" />
         <NodeLayout
           Size="155,42"
           Id="Package\phu_group Flow"
-          TopLeft="417,382" />
+          TopLeft="292,239" />
         <NodeLayout
           Size="190,42"
           Id="Package\public_health_unit Flow"
-          TopLeft="397,578" />
+          TopLeft="723,241" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\vaccines_by_age_phu Flow"
+          TopLeft="629,402" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\vba_age_group Flow"
+          TopLeft="354,403" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="486.75,68">
+          TopLeft="269,134.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,45"
+              EndConnector="65,0"
               Start="0,0"
-              End="0,37.5">
+              End="57.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,37.5" />
+                    End="57.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2014,18 +3505,18 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="488.5,155">
+          TopLeft="566,133">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,39"
+              EndConnector="88,0"
               Start="0,0"
-              End="0,31.5">
+              End="80.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,31.5" />
+                    End="80.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2036,18 +3527,18 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="490.75,236">
+          TopLeft="822,129.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,41"
+              EndConnector="41,0"
               Start="0,0"
-              End="0,33.5">
+              End="33.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.5" />
+                    End="33.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2058,18 +3549,30 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="493,319">
+          TopLeft="993.5,149">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,63"
+              EndConnector="-599.5,90"
               Start="0,0"
-              End="0,55.5">
+              End="-599.5,82.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,55.5" />
+                    End="0,49.448275862069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,49.448275862069"
+                    Point2="0,53.448275862069"
+                    Point3="-4,53.448275862069" />
+                  <mssgle:LineSegment
+                    End="-595.5,53.448275862069" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-595.5,53.448275862069"
+                    Point2="-599.5,53.448275862069"
+                    Point3="-599.5,57.448275862069" />
+                  <mssgle:LineSegment
+                    End="-599.5,82.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2080,18 +3583,18 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="493.25,424">
+          TopLeft="447,259.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,61"
+              EndConnector="75,0"
               Start="0,0"
-              End="0,53.5">
+              End="67.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,53.5" />
+                    End="67.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2102,18 +3605,18 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="237,46">
+          TopLeft="168.5,66">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="152,0"
+              EndConnector="0,47"
               Start="0,0"
-              End="144.5,0">
+              End="0,39.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="144.5,0" />
+                    End="0,39.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2124,18 +3627,108 @@ where [refTable].[name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="492,527">
+          TopLeft="666,260.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,51"
+              EndConnector="57,0"
               Start="0,0"
-              End="0,43.5">
+              End="49.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,43.5" />
+                    End="49.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="818,283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-375.5,120"
+              Start="0,0"
+              End="-375.5,112.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56"
+                    Point2="0,60"
+                    Point3="-4,60" />
+                  <mssgle:LineSegment
+                    End="-371.5,60" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-371.5,60"
+                    Point2="-375.5,60"
+                    Point3="-375.5,64" />
+                  <mssgle:LineSegment
+                    End="-375.5,112.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="738,152">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-393,87"
+              Start="0,0"
+              End="-393,79.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,47.6666666666667"
+                    Point2="0,51.6666666666667"
+                    Point3="-4,51.6666666666667" />
+                  <mssgle:LineSegment
+                    End="-389,51.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-389,51.6666666666667"
+                    Point2="-393,51.6666666666667"
+                    Point3="-393,55.6666666666667" />
+                  <mssgle:LineSegment
+                    End="-393,79.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="531,423.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98,0"
+              Start="0,0"
+              End="90.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="90.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2153,13 +3746,25 @@ where [refTable].[name] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="191,42"
-          Id="Package\phu_city Flow\Load public_health_unit"
-          TopLeft="321,54" />
+          Size="182,42"
+          Id="Package\phu_city Flow\Lookup phu_group_id"
+          TopLeft="330,263" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\phu_city Flow\Insert Into phu_city"
+          TopLeft="338,483" />
         <NodeLayout
           Size="167,42"
           Id="Package\phu_city Flow\Lookup phu_group"
           TopLeft="338,154" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\phu_city Flow\Add source_id Column"
+          TopLeft="332,375" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\phu_city Flow\Load public_health_unit"
+          TopLeft="321,54" />
         <EdgeLayout
           Id="Package\phu_city Flow.Paths[OLE DB Source Output]"
           TopLeft="419,96">
@@ -2179,41 +3784,11 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="182,42"
-          Id="Package\phu_city Flow\Lookup phu_group_id"
-          TopLeft="330,263" />
-        <EdgeLayout
-          Id="Package\phu_city Flow.Paths[Lookup Match Output]"
-          TopLeft="421.25,196">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,67"
-              Start="0,0"
-              End="0,59.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,59.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,23.9453125,96.3827734375,11.609375"
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="184,42"
-          Id="Package\phu_city Flow\Add source_id Column"
-          TopLeft="332,375" />
         <EdgeLayout
           Id="Package\phu_city Flow.Paths[Lookup Match Output1]"
           TopLeft="422.5,305">
@@ -2238,10 +3813,30 @@ where [refTable].[name] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\phu_city Flow\Insert Into phu_city"
-          TopLeft="338,483" />
+        <EdgeLayout
+          Id="Package\phu_city Flow.Paths[Lookup Match Output]"
+          TopLeft="421.25,196">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,23.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\phu_city Flow.Paths[Derived Column Output]"
           TopLeft="424.25,417">
@@ -2261,7 +3856,9 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2343,7 +3940,7 @@ where [refTable].[name] = ?</property>
     design-time-name="Package\phu_group Flow">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="150,42"
           Id="Package\phu_group Flow\OLE DB Source"
@@ -2375,7 +3972,9 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2397,7 +3996,9 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2469,7 +4070,9 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2491,7 +4094,9 @@ where [refTable].[name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2562,6 +4167,354 @@ where [refTable].[name] = ?</property>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\vaccines_by_age_phu Flow">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\vaccines_by_age_phu Flow\Lookup"
+          TopLeft="474,398" />
+        <NodeLayout
+          Size="295,42"
+          Id="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage"
+          TopLeft="382,57" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\vaccines_by_age_phu Flow\Lookup age_group_id"
+          TopLeft="434,179" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\vaccines_by_age_phu Flow\Add source_id Column"
+          TopLeft="435,296" />
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[Derived Column Output]"
+          TopLeft="528.75,338">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[OLE DB Source Output]"
+          TopLeft="527,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,80"
+              Start="0,0"
+              End="0,72.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[Lookup Match Output]"
+          TopLeft="525.75,221">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,27.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171,42"
+          Id="Package\vaccines_by_age_phu Flow\OLE DB Destination"
+          TopLeft="451,525" />
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[Lookup Match Output1]"
+          TopLeft="533.5,440">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85"
+              Start="0,0"
+              End="0,77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,32.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="154,42"
+          Id="Package\vaccines_by_age_phu Flow\Derived Column"
+          TopLeft="769,393" />
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[Lookup No Match Output]"
+          TopLeft="587,416.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="182,0"
+              Start="0,0"
+              End="174.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="174.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="31.44361328125,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="180,42"
+          Id="Package\vaccines_by_age_phu Flow\OLE DB Destination 1"
+          TopLeft="753,520" />
+        <EdgeLayout
+          Id="Package\vaccines_by_age_phu Flow.Paths[Derived Column Output1]"
+          TopLeft="844.5,435">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85"
+              Start="0,0"
+              End="0,77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\vaccines_by_age_phu Flow\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[public_health_unit]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\vaccines_by_age_phu Flow\Load vaccines_by_age_phu Table From Stage">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\vaccines_by_age_phu Flow\Lookup age_group_id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[vba_age_group]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\vba_age_group Flow">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="265,42"
+          Id="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage"
+          TopLeft="343,44" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\vba_age_group Flow\Add source_id Column"
+          TopLeft="377,146" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\vba_age_group Flow\OLE DB Destination"
+          TopLeft="379,245" />
+        <EdgeLayout
+          Id="Package\vba_age_group Flow.Paths[OLE DB Source Output]"
+          TopLeft="472.25,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\vba_age_group Flow.Paths[Derived Column Output]"
+          TopLeft="466.75,188">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\vba_age_group Flow\Load vaccines_by_age_phu From Stage">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\vba_age_group Flow\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\vaccines_by_age_phu Flow\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\vaccines_by_age_phu Flow\OLE DB Destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -1,12 +1,22 @@
-USE tempdb
-GO
-DROP DATABASE covid_nds
-GO
-
-CREATE DATABASE covid_nds
-GO
+-- CREATE DATABASE covid_nds
+-- GO
 USE covid_nds
 GO
+
+DROP TABLE [vaccines_by_age_phu]
+DROP TABLE [ongoing_outbreaks_phu]
+DROP TABLE [outbreak_group]
+DROP TABLE [case]
+DROP TABLE [public_health_unit]
+DROP TABLE [phu_city]
+DROP TABLE [phu_group]
+DROP TABLE [vba_age_group]
+DROP TABLE [outcome]
+DROP TABLE [exposure]
+DROP TABLE [age_group]
+DROP TABLE [source]
+
+
 
 CREATE TABLE [phu_city]
 (
@@ -76,6 +86,17 @@ CREATE TABLE [vaccines_by_age_phu]
     third_dose_cumulative INT
 
     CONSTRAINT pk__vaccines_by_age_phu PRIMARY KEY (id)
+)
+GO
+
+
+CREATE TABLE [vba_age_group]
+(
+    id INT IDENTITY,
+    source_id INT, 
+    age_group NVARCHAR(255),
+
+    CONSTRAINT pk__vba_age_group PRIMARY KEY (id)
 )
 GO
 
@@ -214,11 +235,11 @@ GO
 
 
 ALTER TABLE [vaccines_by_age_phu]
-    ADD CONSTRAINT fk__public_health_unit__public_health_unit
+    ADD CONSTRAINT fk__vaccines_by_age_phu__public_health_unit
     FOREIGN KEY (phu_id) REFERENCES public_health_unit (id)
 ALTER TABLE [vaccines_by_age_phu]
-    ADD CONSTRAINT fk__public_health_unit__age_group
-    FOREIGN KEY (age_group_id) REFERENCES age_group (id)
+    ADD CONSTRAINT fk__vaccines_by_age_phu__vba_age_group
+    FOREIGN KEY (age_group_id) REFERENCES vba_age_group (id)
 ALTER TABLE [vaccines_by_age_phu]
     ADD CONSTRAINT fk__vaccines_by_age_phu__source
     FOREIGN KEY (source_id) REFERENCES source (id)
@@ -255,6 +276,10 @@ ALTER TABLE [age_group]
 GO
 
 
+ALTER TABLE [vba_age_group]
+    ADD CONSTRAINT fk__vba_age_group__source
+    FOREIGN KEY (source_id) REFERENCES source (id)
+GO
 ----------------------------------------------------------
 
 
