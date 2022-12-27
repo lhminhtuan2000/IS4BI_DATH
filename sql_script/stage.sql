@@ -1,6 +1,9 @@
 USE tempdb
 GO
 
+DROP DATABASE covid_stage
+GO
+
 CREATE DATABASE covid_stage
 GO
 

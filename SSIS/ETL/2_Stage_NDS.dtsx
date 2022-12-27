@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Source_Stage"
   DTS:PackageType="5"
-  DTS:VersionBuild="19"
-  DTS:VersionGUID="{A40B61DC-DC4C-41AE-801D-5B7F6E95B4A1}">
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{574587E6-F878-48B0-A3D7-6BF7BDC0E02B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -302,7 +302,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -314,7 +314,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -326,7 +326,19 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public Health Units GROUP.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager 3]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{60B192A4-E734-4B6F-83A5-5401D6DE4857}"
+      DTS:ObjectName="Excel Connection Manager 3">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\pmtri\Documents\is for bi\IS4BI_DATH\data\Public health unit.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -526,11 +538,273 @@
           version="1">
           <components>
             <component
-              refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP"
+              refId="Package\phu_city Flow\Fuzzy Lookup"
+              componentClassID="Microsoft.FuzzyLookup"
+              contactInfo="Fuzzy Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;5"
+              description="Performs data cleaning tasks such as standardizing data, correcting data, and providing missing values.  Uses fuzzy matching to return one or more close matches from a reference table. For example, lookup customer data by address, even if your input address data does not exactly match your reference address data."
+              name="Fuzzy Lookup"
+              version="5">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates whether to reuse an existing fuzzy-match index table or build a new one. The new index table can be temporary, persisted, or persisted and maintained."
+                  name="MatchIndexOptions"
+                  typeConverter="tcMatchIndexOptions">1</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the maximum amount of memory (MB) that this instance of the Fuzzy Lookup transformation can use.  If 0 is given, then the transform will dynamically adjust it's memory usage based upon it's requirements and available system memory."
+                  expressionType="Notify"
+                  name="MaxMemoryUsage" />
+                <property
+                  dataType="System.Null"
+                  description="Specifies the name of the fuzzy-match index table to be reused or the table name in which a newly generated fuzzy-match index table will be written."
+                  name="MatchIndexName"
+                  state="escaped" />
+                <property
+                  dataType="System.Null"
+                  description="Specifies the name of the reference table or view against which to match incoming records."
+                  name="ReferenceTableName"
+                  state="escaped" />
+                <property
+                  dataType="System.Int32"
+                  description="Indicates whether to drop an existing fuzzy-match index table if transformation is configured to generate a new table and a table with the same name already exists."
+                  name="DropExistingMatchIndex">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Whether a copy of the reference table should be made for fuzzy match index construction and subsequent matching.  It is strongly recommended that a copy always be made, otherwise unpredictable output may result if the contents of the reference table change during package execution (or between executions if reusing a fuzzy match index).  If this property is set to false, the reference table must additionally have a clustered index built upon an integer identity column."
+                  name="CopyReferenceTable">1</property>
+                <property
+                  dataType="System.UInt32"
+                  description="Specifies the maximum number of fuzzy matches to return for an input record."
+                  name="MaxOutputMatchesPerInput">1</property>
+                <property
+                  dataType="System.Single"
+                  description="Specifies the minimum similarity score required for the match results that the transformation returns."
+                  name="MinSimilarity">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the set of white-space and punctuation characters used to separate fuzzy match fields into the words used for matching and scoring a fuzzy lookup."
+                  name="Delimiters"
+                  state="escaped">_x0020__x0009__x000D__x000A__x002C_._x003B_:-_x0022__x0027__x0026__x002F__x005C__x0040__x0021__x003F__x0028__x0029__x003C__x003E__x005B__x005D__x007B__x007D__x007C__x0023__x002A__x005E__x0025_</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the metadata of the reference table in XML format."
+                  name="ReferenceMetadataXml"
+                  state="escaped" />
+                <property
+                  dataType="System.Boolean"
+                  description="If true, each input record will be directly compared against EVERY record in the reference table.  This may produce slightly better results, but will be extremely slow unless the number of records in the reference table is very small.  Note that the entire reference table will be loaded into main memory if this option is enabled.  This option is primarily intended for debugging purposes and should be used with care."
+                  name="Exhaustive">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="If true, Fuzzy Lookup will partially load the error-tolerant index and the reference table into main memory before execution begins.  This can greatly enhance performance if many input rows are to be processed."
+                  name="WarmCaches">true</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\phu_city Flow\Fuzzy Lookup.Connections[OleDbConnection]"
+                  description="Microsoft SQL Server connection and database in which the fuzzy lookup reference table is located and where the fuzzy match index table will be stored and accessed."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\phu_city Flow\Fuzzy Lookup.Inputs[Fuzzy Lookup Input]"
+                  name="Fuzzy Lookup Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\phu_city Flow\Fuzzy Lookup.Outputs[Fuzzy Lookup Output]"
+                  name="Fuzzy Lookup Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\phu_city Flow\Fuzzy Lookup.Outputs[Fuzzy Lookup Output].Columns[_Similarity]"
+                      dataType="r4"
+                      lineageId="Package\phu_city Flow\Fuzzy Lookup.Outputs[Fuzzy Lookup Output].Columns[_Similarity]"
+                      name="_Similarity">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies whether the column is used to indicate confidence or similarity."
+                          name="ColumnType"
+                          typeConverter="tcColumnType">1</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\phu_city Flow\Fuzzy Lookup.Outputs[Fuzzy Lookup Output].Columns[_Confidence]"
+                      dataType="r4"
+                      lineageId="Package\phu_city Flow\Fuzzy Lookup.Outputs[Fuzzy Lookup Output].Columns[_Confidence]"
+                      name="_Confidence">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies whether the column is used to indicate confidence or similarity."
+                          name="ColumnType"
+                          typeConverter="tcColumnType">2</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\phu_city Flow\Import Public_Health_Units"
               componentClassID="Microsoft.ExcelSource"
               contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
               description="Excel Source"
-              name="Import Cities In Public_Health_Units_GROUP"
+              name="Import Public_Health_Units"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">'Public health unit$'</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select *
+from [Trang Tính1$A1:B35]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\phu_city Flow\Import Public_Health_Units.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 3]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].Columns[Reporting_PHU]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU]"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].Columns[Reporting_PHU]"
+                      name="Reporting_PHU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].Columns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_City]"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].Columns[Reporting_PHU_City]"
+                      name="Reporting_PHU_City"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[PHU_ID]"
+                      dataType="r8"
+                      name="PHU_ID" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Address" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_City" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Postal_Code]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Postal_Code" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Website]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Website" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Latitude]"
+                      dataType="r8"
+                      name="Reporting_PHU_Latitude" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Longitude]"
+                      dataType="r8"
+                      name="Reporting_PHU_Longitude" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[Reporting_PHU]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[Reporting_PHU]"
+                      name="Reporting_PHU" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units.Outputs[Excel Source Error Output].Columns[Reporting_PHU_City]"
+                      name="Reporting_PHU_City" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\phu_city Flow\Import Public_Health_Units_GROUP"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Import Public_Health_Units_GROUP"
               usesDispositions="true"
               version="1">
               <properties>
@@ -560,7 +834,7 @@ from [Trang Tính1$A1:B35]</property>
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">2</property>
+                  typeConverter="AccessMode">0</property>
                 <property
                   dataType="System.String"
                   description="The mapping from parameters in the SQL command to variables."
@@ -568,7 +842,7 @@ from [Trang Tính1$A1:B35]</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Connections[OleDbConnection]"
+                  refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 1]"
                   connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 1]"
                   description="The OLE DB runtime connection used to access the database."
@@ -576,71 +850,92 @@ from [Trang Tính1$A1:B35]</property>
               </connections>
               <outputs>
                 <output
-                  refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output]"
+                  refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output]"
                   name="Excel Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_City]"
+                      externalMetadataColumnId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_City]"
                       length="255"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]"
                       name="PHU_City"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_Group]"
+                      externalMetadataColumnId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_Group]"
                       length="255"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]"
                       name="PHU_Group"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_region]"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_region]"
+                      name="PHU_region"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_City]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_City]"
                       dataType="wstr"
                       length="255"
                       name="PHU_City" />
                     <externalMetadataColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_Group]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_Group]"
                       dataType="wstr"
                       length="255"
                       name="PHU_Group" />
+                    <externalMetadataColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_region]"
+                      dataType="wstr"
+                      length="255"
+                      name="PHU_region" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output]"
+                  refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output]"
                   isErrorOut="true"
                   name="Excel Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_Group]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_Group]"
                       dataType="wstr"
                       length="255"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_Group]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_Group]"
                       name="PHU_Group" />
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_City]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_City]"
                       dataType="wstr"
                       length="255"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_City]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_City]"
                       name="PHU_City" />
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_region]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[PHU_region]"
+                      name="PHU_region" />
+                    <outputColumn
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -705,7 +1000,7 @@ where [refTable].[phu_group_name] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\phu_city Flow\23:invalid};</property>
+                  name="ParameterMap">#{Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].ExternalColumns[PHU_region]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -733,7 +1028,7 @@ where [refTable].[phu_group_name] = ?</property>
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="PHU_Group"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]">
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_Group]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -891,7 +1186,7 @@ where [refTable].[phu_group_name] = ?</property>
                       cachedLength="255"
                       cachedName="PHU_City"
                       externalMetadataColumnId="Package\phu_city Flow\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
-                      lineageId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]" />
+                      lineageId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output].Columns[PHU_City]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -940,9 +1235,9 @@ where [refTable].[phu_group_name] = ?</property>
           <paths>
             <path
               refId="Package\phu_city Flow.Paths[Excel Source Output]"
-              endId="Package\phu_city Flow\Lookup phu_group_id.Inputs[Lookup Input]"
+              endId="Package\phu_city Flow\Fuzzy Lookup.Inputs[Fuzzy Lookup Input]"
               name="Excel Source Output"
-              startId="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP.Outputs[Excel Source Output]" />
+              startId="Package\phu_city Flow\Import Public_Health_Units_GROUP.Outputs[Excel Source Output]" />
             <path
               refId="Package\phu_city Flow.Paths[Lookup Match Output]"
               endId="Package\phu_city Flow\OLE DB Destination.Inputs[OLE DB Destination Input]"
@@ -1198,6 +1493,345 @@ from [Trang Tính1$A1:A35]</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\public_health_unit Flow"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{122C4C8C-A79C-47D8-B8A8-1F1C731A1FA9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="public_health_unit Flow"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\public_health_unit Flow\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\public_health_unit Flow\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\public_health_unit Flow\Derived Column.Inputs[Derived Column Input].Columns[Reporting_PHU]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Reporting_PHU"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression"></property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression"></property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\public_health_unit Flow\Derived Column.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\public_health_unit Flow\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\public_health_unit Flow\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\public_health_unit Flow\Import Public_health_unit"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Import Public_health_unit"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">'Public health unit$'</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT REPLACE('SQL Tutorial', 'T', 'M');</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\public_health_unit Flow\Import Public_health_unit.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 3]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 3]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[PHU_ID]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[PHU_ID]"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[PHU_ID]"
+                      name="PHU_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU]"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU]"
+                      name="Reporting_PHU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Address]"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Address]"
+                      name="Reporting_PHU_Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_City]"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_City]"
+                      name="Reporting_PHU_City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Postal_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Postal_Code]"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Postal_Code]"
+                      name="Reporting_PHU_Postal_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Website]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Website]"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Website]"
+                      name="Reporting_PHU_Website"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Latitude]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Latitude]"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Latitude]"
+                      name="Reporting_PHU_Latitude"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Longitude]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Longitude]"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].Columns[Reporting_PHU_Longitude]"
+                      name="Reporting_PHU_Longitude"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[PHU_ID]"
+                      dataType="r8"
+                      name="PHU_ID" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Address]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Address" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_City" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Postal_Code]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Postal_Code" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Website]"
+                      dataType="wstr"
+                      length="255"
+                      name="Reporting_PHU_Website" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Latitude]"
+                      dataType="r8"
+                      name="Reporting_PHU_Latitude" />
+                    <externalMetadataColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output].ExternalColumns[Reporting_PHU_Longitude]"
+                      dataType="r8"
+                      name="Reporting_PHU_Longitude" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[PHU_ID]"
+                      dataType="r8"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[PHU_ID]"
+                      name="PHU_ID" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU]"
+                      name="Reporting_PHU" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Address]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Address]"
+                      name="Reporting_PHU_Address" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_City]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_City]"
+                      name="Reporting_PHU_City" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Postal_Code]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Postal_Code]"
+                      name="Reporting_PHU_Postal_Code" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Website]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Website]"
+                      name="Reporting_PHU_Website" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Latitude]"
+                      dataType="r8"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Latitude]"
+                      name="Reporting_PHU_Latitude" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Longitude]"
+                      dataType="r8"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[Reporting_PHU_Longitude]"
+                      name="Reporting_PHU_Longitude" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\public_health_unit Flow.Paths[Excel Source Output]"
+              endId="Package\public_health_unit Flow\Derived Column.Inputs[Derived Column Input]"
+              name="Excel Source Output"
+              startId="Package\public_health_unit Flow\Import Public_health_unit.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -1216,6 +1850,14 @@ from [Trang Tính1$A1:A35]</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\phu_group Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{ECB9E856-2FC0-48C2-8A70-5B14B3A8CA6B}"
+      DTS:From="Package\phu_city Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\public_health_unit Flow" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1230,13 +1872,17 @@ from [Trang Tính1$A1:A35]</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="155,42"
-          Id="Package\phu_group Flow"
-          TopLeft="239,225" />
+          Size="163,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="237,105" />
         <NodeLayout
           Size="144,42"
           Id="Package\phu_city Flow"
           TopLeft="486,225" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\phu_group Flow"
+          TopLeft="239,225" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="394,246">
@@ -1259,10 +1905,6 @@ from [Trang Tính1$A1:A35]</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="163,42"
-          Id="Package\Execute SQL Task"
-          TopLeft="237,105" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="317.5,147">
@@ -1285,22 +1927,195 @@ from [Trang Tính1$A1:A35]</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="190,42"
+          Id="Package\public_health_unit Flow"
+          TopLeft="741,227" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="630,247">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="111,0"
+              Start="0,0"
+              End="103.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="103.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\phu_city Flow">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\phu_city Flow\OLE DB Destination"
+          TopLeft="291,417" />
+        <NodeLayout
+          Size="248,42"
+          Id="Package\phu_city Flow\Import Public_Health_Units_GROUP"
+          TopLeft="226,55" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\phu_city Flow\Lookup phu_group_id"
+          TopLeft="71,300" />
+        <EdgeLayout
+          Id="Package\phu_city Flow.Paths[Lookup Match Output]"
+          TopLeft="162,342">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="214.5,75"
+              Start="0,0"
+              End="214.5,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.5"
+                    Point2="0,37.5"
+                    Point3="4,37.5" />
+                  <mssgle:LineSegment
+                    End="210.5,37.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="210.5,37.5"
+                    Point2="214.5,37.5"
+                    Point3="214.5,41.5" />
+                  <mssgle:LineSegment
+                    End="214.5,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="50.1899609375,42.5,114.120078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\phu_city Flow\Import Public_Health_Units"
+          TopLeft="566,56" />
+        <NodeLayout
+          Size="143,42"
+          Id="Package\phu_city Flow\Fuzzy Lookup"
+          TopLeft="472,196" />
+        <EdgeLayout
+          Id="Package\phu_city Flow.Paths[Excel Source Output]"
+          TopLeft="350,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="193.5,99"
+              Start="0,0"
+              End="193.5,91.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.5"
+                    Point2="0,49.5"
+                    Point3="4,49.5" />
+                  <mssgle:LineSegment
+                    End="189.5,49.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="189.5,49.5"
+                    Point2="193.5,49.5"
+                    Point3="193.5,53.5" />
+                  <mssgle:LineSegment
+                    End="193.5,91.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\phu_city Flow\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\phu_city Flow\Import Public_Health_Units_GROUP">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\phu_city Flow\Lookup phu_group_id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[phu_group]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\phu_group Flow">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="298,42"
-          Id="Package\phu_group Flow\Import Groups In Public_Health_Units_GROUP"
-          TopLeft="231,162" />
-        <NodeLayout
           Size="171,42"
           Id="Package\phu_group Flow\OLE DB Destination"
           TopLeft="302,302" />
+        <NodeLayout
+          Size="298,42"
+          Id="Package\phu_group Flow\Import Groups In Public_Health_Units_GROUP"
+          TopLeft="231,162" />
         <EdgeLayout
           Id="Package\phu_group Flow.Paths[Excel Source Output]"
           TopLeft="383.75,204">
@@ -1353,32 +2168,44 @@ from [Trang Tính1$A1:A35]</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\phu_city Flow">
+    design-time-name="Package\public_health_unit Flow">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="289,42"
-          Id="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP"
-          TopLeft="223,53" />
+          Size="201,42"
+          Id="Package\public_health_unit Flow\Import Public_health_unit"
+          TopLeft="350,61" />
         <NodeLayout
-          Size="182,42"
-          Id="Package\phu_city Flow\Lookup phu_group_id"
-          TopLeft="276,159" />
+          Size="154,42"
+          Id="Package\public_health_unit Flow\Derived Column"
+          TopLeft="364,156" />
         <EdgeLayout
-          Id="Package\phu_city Flow.Paths[Excel Source Output]"
-          TopLeft="367.25,95">
+          Id="Package\public_health_unit Flow.Paths[Excel Source Output]"
+          TopLeft="450.5,103">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,64"
+              EndConnector="-9.5,53"
               Start="0,0"
-              End="0,56.5">
+              End="-9.5,45.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,56.5" />
+                    End="0,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="-4,26.5" />
+                  <mssgle:LineSegment
+                    End="-5.5,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-5.5,26.5"
+                    Point2="-9.5,26.5"
+                    Point3="-9.5,30.5" />
+                  <mssgle:LineSegment
+                    End="-9.5,45.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1387,39 +2214,11 @@ from [Trang Tính1$A1:A35]</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="171,42"
-          Id="Package\phu_city Flow\OLE DB Destination"
-          TopLeft="280,285" />
-        <EdgeLayout
-          Id="Package\phu_city Flow.Paths[Lookup Match Output]"
-          TopLeft="366.25,201">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,84"
-              Start="0,0"
-              End="0,76.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,76.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,32.4453125,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\phu_city Flow\Import Cities In Public_Health_Units_GROUP">
+    design-time-name="Package\public_health_unit Flow\Import Public_health_unit">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1432,30 +2231,7 @@ from [Trang Tính1$A1:A35]</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\phu_city Flow\Lookup phu_group_id">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[phu_group]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\phu_city Flow\OLE DB Destination">
+    design-time-name="Package\phu_city Flow\Import Public_Health_Units">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
