@@ -1,8 +1,15 @@
-USE tempdb
-GO
+-- USE tempdb
+-- GO
 
-DROP DATABASE covid_stage
-GO
+-- DROP DATABASE covid_stage
+-- GO
+
+-- DROP TABLE cases_report
+-- DROP TABLE compiled_covid_19_case_details
+-- DROP TABLE ongoing_outbreadks_phu
+-- DROP TABLE public_health_unit
+-- DROP TABLE public_health_units_group
+-- DROP TABLE vaccines_by_age_phu
 
 CREATE DATABASE covid_stage
 GO
@@ -13,6 +20,7 @@ GO
 
 CREATE TABLE cases_report
 (
+    id INT IDENTITY,
     outcome NVARCHAR(255),
     age NVARCHAR(255),
     gender NVARCHAR(255),
@@ -91,3 +99,4 @@ CREATE TABLE vaccines_by_age_phu
     fully_vaccinated_cumulative INT,
     third_dose_cumulative INT,
 )
+

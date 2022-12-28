@@ -13,6 +13,7 @@ GO
 
 CREATE TABLE cases_report
 (
+    id INT IDENTITY,
     outcome NVARCHAR(255),
     age NVARCHAR(255),
     gender NVARCHAR(255),

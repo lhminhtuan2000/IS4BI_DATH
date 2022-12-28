@@ -1,5 +1,9 @@
--- CREATE DATABASE covid_nds
--- GO
+use tempdb
+go
+Drop DATABASE covid_nds
+GO
+CREATE DATABASE covid_nds
+GO
 USE covid_nds
 GO
 
@@ -45,7 +49,7 @@ GO
 
 CREATE TABLE [outbreak_group]
 (
-    id INT IDENTITY,
+    id INT,
     outbreak_group NVARCHAR(255),
 
     source_id INT,
@@ -160,7 +164,7 @@ CREATE TABLE [public_health_unit]
 (
     id INT IDENTITY,
     
-    phu_nk INT UNIQUE,
+    phu_nk INT,
     source_id INT,
     
     [name] NVARCHAR(255),
@@ -301,4 +305,4 @@ INSERT INTO source (name) VALUES ('vaccines_by_age_phu.csv')
 -- DELETE FROM age_group
 -- DELETE FROM [case]
 -- DELETE FROM public_health_unit
--- DELETE FROM source
+-- DELETE FROM source [OLE DB Destination [52]] Error: SSIS Error Code DTS_E_INDUCEDTRANSFORMFAILUREONERROR.  The "OLE DB Destination.Inputs[OLE DB Destination Input]" failed because error code 0xC020907B occurred, and the error row disposition on "OLE DB Destination.Inputs[OLE DB Destination Input]" specifies failure on error. An error occurred on the specified object of the specified component.  There may be error messages posted before this with more information about the failure.
