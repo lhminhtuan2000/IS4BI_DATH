@@ -43,8 +43,6 @@ CREATE TABLE dim_gender
 (
     id INT IDENTITY,
 
-    nds_id INT,
-
     gender NVARCHAR(255),
 
     CONSTRAINT pk__dim_gender PRIMARY KEY (id)
@@ -75,7 +73,7 @@ CREATE TABLE dim_phu
     phu_nk INT,
     source_id INT,
     [name] NVARCHAR(255),
-    adress NVARCHAR(255),
+    [address] NVARCHAR(255),
     phu_city_id INT,
     postal_code NVARCHAR(255),
     website NVARCHAR(255),
