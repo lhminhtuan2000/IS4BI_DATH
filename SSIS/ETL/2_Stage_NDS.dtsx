@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="88"
-  DTS:VersionGUID="{2B3CC2C4-16E0-4750-BB87-5CF49AAEDF26}">
+  DTS:VersionBuild="90"
+  DTS:VersionGUID="{B5657B9D-D190-4763-9BC0-344E34CFAD76}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -3486,7 +3486,7 @@ where [refTable].[name] = ?</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{22B55042-66C0-41DF-84A6-56A3B72E137A}"
-          SQLTask:SqlStatementSource="UPDATE compiled_covid_19_case_details&#xA;SET case_status = 'Fatal'&#xA;WHERE case_status = 'Deceased'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="UPDATE compiled_covid_19_case_details&#xA;SET case_status = 'Fatal'&#xA;WHERE case_status = 'Deceased'&#xA;GO&#xA;&#xA;UPDATE compiled_covid_19_case_details&#xA;SET case_status = 'Resolved'&#xA;WHERE case_status = 'Recovered'&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
