@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="90"
-  DTS:VersionGUID="{B5657B9D-D190-4763-9BC0-344E34CFAD76}">
+  DTS:VersionBuild="95"
+  DTS:VersionGUID="{7869BFFD-EDB6-4A78-BBFB-FA199A5DE531}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -4414,7 +4414,7 @@ where [refTable].[phu_nk] = ?</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CF891C80-0BC1-4CCC-BD0B-1186C357E9FF}"
-          SQLTask:SqlStatementSource="DELETE FROM [vaccines_by_age_phu]&#xA;DELETE FROM [ongoing_outbreaks_phu]&#xA;DELETE FROM [outbreak_group]&#xA;&#xA;DELETE FROM [case]&#xA;&#xA;DELETE FROM [public_health_unit]&#xA;DELETE FROM [phu_city]&#xA;DELETE FROM [phu_group]&#xA;DELETE FROM [vba_age_group]&#xA;DELETE FROM [outcome]&#xA;DELETE FROM [exposure]&#xA;DELETE FROM [age_group]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM [vaccines_by_age_phu]&#xA;DBCC CHECKIDENT ('vaccines_by_age_phu', RESEED, 0)&#xA;DELETE FROM [ongoing_outbreaks_phu]&#xA;DBCC CHECKIDENT ('ongoing_outbreaks_phu', RESEED, 0)&#xA;DELETE FROM [outbreak_group]&#xA;&#xA;DELETE FROM [case]&#xA;DBCC CHECKIDENT ('case', RESEED, 0)&#xA;&#xA;DELETE FROM [public_health_unit]&#xA;DBCC CHECKIDENT ('public_health_unit', RESEED, 0)&#xA;DELETE FROM [phu_city] WHERE id != 0&#xA;DBCC CHECKIDENT ('phu_city', RESEED, 0)&#xA;DELETE FROM [phu_group] WHERE id != 0&#xA;DBCC CHECKIDENT ('phu_group', RESEED, 0)&#xA;DELETE FROM [vba_age_group]&#xA;DBCC CHECKIDENT ('vba_age_group', RESEED, 0)&#xA;DELETE FROM [outcome]&#xA;DBCC CHECKIDENT ('outcome', RESEED, 0)&#xA;DELETE FROM [exposure]&#xA;DBCC CHECKIDENT ('exposure', RESEED, 0)&#xA;DELETE FROM [age_group]&#xA;DBCC CHECKIDENT ('age_group', RESEED, 0)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -7794,15 +7794,15 @@ FROM public_health_units_group</property>
           version="1">
           <components>
             <component
-              refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column"
+              refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Add source_id Column"
+              name="Add source_id And phu_city_id Column"
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Inputs[Derived Column Input]"
+                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
                   <externalMetadataColumns />
@@ -7810,18 +7810,18 @@ FROM public_health_units_group</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Output]"
+                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[source_id]"
                       dataType="i4"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]"
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[source_id]"
                       name="source_id"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -7838,27 +7838,49 @@ FROM public_health_units_group</property>
                           name="FriendlyExpression">2</property>
                       </properties>
                     </outputColumn>
+                    <outputColumn
+                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[phu_city_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[phu_city_id]"
+                      name="phu_city_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">0</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Error Output]"
+                  refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -8195,7 +8217,7 @@ where [refTable].[name] = ?</property>
                       cachedDataType="i4"
                       cachedName="source_id"
                       externalMetadataColumnId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[source_id]"
-                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Output].Columns[source_id]" />
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[source_id]" />
                     <inputColumn
                       refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[health_region]"
                       cachedDataType="wstr"
@@ -8203,6 +8225,12 @@ where [refTable].[name] = ?</property>
                       cachedName="health_region"
                       externalMetadataColumnId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
                       lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Load health_region Incompiled_covid_19_case_details (Stage).Outputs[OLE DB Source Output].Columns[health_region]" />
+                    <inputColumn
+                      refId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[phu_city_id]"
+                      cachedDataType="i4"
+                      cachedName="phu_city_id"
+                      externalMetadataColumnId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[phu_city_id]"
+                      lineageId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output].Columns[phu_city_id]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -8284,10 +8312,10 @@ where [refTable].[name] = ?</property>
               refId="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Derived Column Output]"
               endId="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Outputs[Derived Column Output]" />
+              startId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Outputs[Derived Column Output]" />
             <path
               refId="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Lookup No Match Output]"
-              endId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column.Inputs[Derived Column Input]"
+              endId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column.Inputs[Derived Column Input]"
               name="Lookup No Match Output"
               startId="Package\public_health_unit Flow (compiled_covid_19_case_details)\Lookup For health_region That's Not In Yet.Outputs[Lookup No Match Output]" />
             <path
@@ -9033,6 +9061,22 @@ where [refTable].[name] = ?</property>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{22B55042-66C0-41DF-84A6-56A3B72E137A}"
           SQLTask:SqlStatementSource="UPDATE       public_health_unit&#xA;SET                reporting_phu = REPLACE(REPLACE(REPLACE(REPLACE(reporting_phu, 'Health Unit', 'Public Health'), ' &amp;', ','), ' and', ','), ' District', '')&#xA;GO&#xA;&#xA;UPDATE public_health_units_group&#xA;SET phu_region=  REPLACE(&#xA;    REPLACE(&#xA;        REPLACE(&#xA;            REPLACE( &#xA;                phu_region,&#xA;                'Health Unit', &#xA;                'Public Health'&#xA;            ), ' &amp;', ','&#xA;        ), ' and', ','&#xA;    ), ' District', ''&#xA;)&#xA;GO&#xA;&#xA;&#xA;UPDATE compiled_covid_19_case_details&#xA;SET health_region =  REPLACE(&#xA;    REPLACE(&#xA;        REPLACE(&#xA;            REPLACE( &#xA;                health_region,&#xA;                'Health Unit', &#xA;                'Public Health'&#xA;            ), ' &amp;', ','&#xA;        ), ' and', ','&#xA;    ), ' District', ''&#xA;)&#xA;GO&#xA;&#xA;&#xA;UPDATE cases_report&#xA;SET reporting_phu =  REPLACE(&#xA;    REPLACE(&#xA;        REPLACE(&#xA;            REPLACE( &#xA;                reporting_phu,&#xA;                'Health Unit', &#xA;                'Public Health'&#xA;            ), ' &amp;', ','&#xA;        ), ' and', ','&#xA;    ), ' District', ''&#xA;)&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Uniform gender In case Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{662162DF-6C7F-4FE2-B54E-B6F1F602069D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Uniform gender In case Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CF891C80-0BC1-4CCC-BD0B-1186C357E9FF}"
+          SQLTask:SqlStatementSource="UPDATE [case]&#xA;SET gender = UPPER(gender)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -10492,6 +10536,14 @@ FROM vaccines_by_age_phu</property>
       DTS:ObjectName="Constraint"
       DTS:To="Package\Clean case_status In compiled_covid_19_case_details" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{90CB8892-B0CB-4279-8178-2CD7E2D5A9EB}"
+      DTS:From="Package\case Flow (compiled_covid_19_case_details)"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Uniform gender In case Table" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
       DTS:CreationName=""
       DTS:DTSID="{1599DC52-EEF1-4474-B87F-75E3B18ABE4E}"
@@ -10717,6 +10769,10 @@ FROM vaccines_by_age_phu</property>
           Id="Package\public_health_unit Flow (public_health_unit)"
           TopLeft="630,597" />
         <NodeLayout
+          Size="219,42"
+          Id="Package\Uniform gender In case Table"
+          TopLeft="816,1097" />
+        <NodeLayout
           Size="207,42"
           Id="Package\vaccines_by_age_phu Flow"
           TopLeft="386,694" />
@@ -10724,6 +10780,40 @@ FROM vaccines_by_age_phu</property>
           Size="177,42"
           Id="Package\vba_age_group Flow"
           TopLeft="635,695" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="897.5,1042">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="28,55"
+              Start="0,0"
+              End="28,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.5"
+                    Point2="0,27.5"
+                    Point3="4,27.5" />
+                  <mssgle:LineSegment
+                    End="24,27.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="24,27.5"
+                    Point2="28,27.5"
+                    Point3="28,31.5" />
+                  <mssgle:LineSegment
+                    End="28,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 10]"
           TopLeft="386,713.5">
@@ -10814,13 +10904,13 @@ FROM vaccines_by_age_phu</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 14]"
-          TopLeft="874.5,436">
+          TopLeft="879.5,436">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-656,167"
+              EndConnector="-661,167"
               Start="0,0"
-              End="-656,159.5">
+              End="-661,159.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -10831,13 +10921,13 @@ FROM vaccines_by_age_phu</property>
                     Point2="0,83.5"
                     Point3="-4,83.5" />
                   <mssgle:LineSegment
-                    End="-652,83.5" />
+                    End="-657,83.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="-652,83.5"
-                    Point2="-656,83.5"
-                    Point3="-656,87.5" />
+                    Point1="-657,83.5"
+                    Point2="-661,83.5"
+                    Point3="-661,87.5" />
                   <mssgle:LineSegment
-                    End="-656,159.5" />
+                    End="-661,159.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -11074,9 +11164,9 @@ FROM vaccines_by_age_phu</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-219,107"
+              EndConnector="-218,107"
               Start="0,0"
-              End="-219,99.5">
+              End="-218,99.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -11087,13 +11177,13 @@ FROM vaccines_by_age_phu</property>
                     Point2="0,53.5"
                     Point3="-4,53.5" />
                   <mssgle:LineSegment
-                    End="-215,53.5" />
+                    End="-214,53.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="-215,53.5"
-                    Point2="-219,53.5"
-                    Point3="-219,57.5" />
+                    Point1="-214,53.5"
+                    Point2="-218,53.5"
+                    Point3="-218,57.5" />
                   <mssgle:LineSegment
-                    End="-219,99.5" />
+                    End="-218,99.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -11183,10 +11273,10 @@ FROM vaccines_by_age_phu</property>
         <NodeLayout
           Size="221,42"
           Id="Package\Normalize Age and age_group"
-          TopLeft="516,255" />
+          TopLeft="521,255" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 17]"
-          TopLeft="626.25,169">
+          TopLeft="628.75,169">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -11495,7 +11585,7 @@ FROM vaccines_by_age_phu</property>
         <NodeLayout
           Size="187,42"
           Id="Package\case Flow (cases_report)\Insert Into Case (NDS)"
-          TopLeft="428,299" />
+          TopLeft="428,319" />
         <NodeLayout
           Size="199,42"
           Id="Package\case Flow (cases_report)\Lookup For age_group_id"
@@ -11507,7 +11597,7 @@ FROM vaccines_by_age_phu</property>
         <NodeLayout
           Size="184,42"
           Id="Package\case Flow (cases_report)\Add source_id Column"
-          TopLeft="432,194" />
+          TopLeft="432,220" />
         <NodeLayout
           Size="192,42"
           Id="Package\case Flow (cases_report)\Lookup For exposure_id"
@@ -11543,9 +11633,7 @@ FROM vaccines_by_age_phu</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -11554,33 +11642,33 @@ FROM vaccines_by_age_phu</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-328.5,38"
+              EndConnector="-328.5,64"
               Start="0,0"
-              End="-328.5,30.5">
+              End="-328.5,56.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,15" />
+                    End="0,28" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,15"
-                    Point2="0,19"
-                    Point3="-4,19" />
+                    Point1="0,28"
+                    Point2="0,32"
+                    Point3="-4,32" />
                   <mssgle:LineSegment
-                    End="-324.5,19" />
+                    End="-324.5,32" />
                   <mssgle:CubicBezierSegment
-                    Point1="-324.5,19"
-                    Point2="-328.5,19"
-                    Point3="-328.5,23" />
+                    Point1="-324.5,32"
+                    Point2="-328.5,32"
+                    Point3="-328.5,36" />
                   <mssgle:LineSegment
-                    End="-328.5,30.5" />
+                    End="-328.5,56.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-212.44138671875,24,96.3827734375,11.609375"
+              BoundingBox="-212.44138671875,37,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -11682,26 +11770,24 @@ FROM vaccines_by_age_phu</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\case Flow (cases_report).Paths[Derived Column Output]"
-          TopLeft="522.75,236">
+          TopLeft="522.75,262">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,63"
+              EndConnector="0,57"
               Start="0,0"
-              End="0,55.5">
+              End="0,49.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,55.5" />
+                    End="0,49.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -11889,7 +11975,9 @@ FROM vaccines_by_age_phu</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -12019,7 +12107,9 @@ FROM vaccines_by_age_phu</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -12090,7 +12180,7 @@ FROM vaccines_by_age_phu</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -12100,7 +12190,7 @@ FROM vaccines_by_age_phu</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -13200,7 +13290,7 @@ FROM vaccines_by_age_phu</property>
     design-time-name="Package\phu_group Flow">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="150,42"
           Id="Package\phu_group Flow\OLE DB Source"
@@ -13232,9 +13322,7 @@ FROM vaccines_by_age_phu</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13256,9 +13344,7 @@ FROM vaccines_by_age_phu</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13304,9 +13390,9 @@ FROM vaccines_by_age_phu</property>
           Id="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination"
           TopLeft="333,453" />
         <NodeLayout
-          Size="184,42"
-          Id="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id Column"
-          TopLeft="329,342" />
+          Size="263,42"
+          Id="Package\public_health_unit Flow (compiled_covid_19_case_details)\Add source_id And phu_city_id Column"
+          TopLeft="282,340" />
         <NodeLayout
           Size="283,42"
           Id="Package\public_health_unit Flow (compiled_covid_19_case_details)\Lookup For health_region That's Not In Yet"
@@ -13334,19 +13420,43 @@ FROM vaccines_by_age_phu</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Derived Column Output]"
-          TopLeft="419.75,384">
+          Id="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Lookup No Match Output]"
+          TopLeft="414,268">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,69"
+              EndConnector="0,72"
               Start="0,0"
-              End="0,61.5">
+              End="0,64.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,61.5" />
+                    End="0,64.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,26.4453125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Derived Column Output]"
+          TopLeft="416,382">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71"
+              Start="0,0"
+              End="0,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -13355,41 +13465,9 @@ FROM vaccines_by_age_phu</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\public_health_unit Flow (compiled_covid_19_case_details).Paths[Lookup No Match Output]"
-          TopLeft="417.75,268">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,74"
-              Start="0,0"
-              End="0,66.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,66.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-55.80638671875,27.4453125,111.6127734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\public_health_unit Flow (compiled_covid_19_case_details)\Load health_region Incompiled_covid_19_case_details (Stage)">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\public_health_unit Flow (compiled_covid_19_case_details)\OLE DB Destination">
     <Properties>
@@ -13409,7 +13487,7 @@ FROM vaccines_by_age_phu</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -13419,8 +13497,16 @@ FROM vaccines_by_age_phu</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\public_health_unit Flow (compiled_covid_19_case_details)\Load health_region Incompiled_covid_19_case_details (Stage)">
+    <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>

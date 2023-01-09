@@ -1,24 +1,24 @@
-use tempdb
-go
-Drop DATABASE covid_nds
-GO
+-- use tempdb
+-- go
+-- Drop DATABASE covid_nds
+-- GO
 CREATE DATABASE covid_nds
 GO
 USE covid_nds
 GO
 
-DROP TABLE [vaccines_by_age_phu]
-DROP TABLE [ongoing_outbreaks_phu]
-DROP TABLE [outbreak_group]
-DROP TABLE [case]
-DROP TABLE [public_health_unit]
-DROP TABLE [phu_city]
-DROP TABLE [phu_group]
-DROP TABLE [vba_age_group]
-DROP TABLE [outcome]
-DROP TABLE [exposure]
-DROP TABLE [age_group]
-DROP TABLE [source]
+-- DROP TABLE [vaccines_by_age_phu]
+-- DROP TABLE [ongoing_outbreaks_phu]
+-- DROP TABLE [outbreak_group]
+-- DROP TABLE [case]
+-- DROP TABLE [public_health_unit]
+-- DROP TABLE [phu_city]
+-- DROP TABLE [phu_group]
+-- DROP TABLE [vba_age_group]
+-- DROP TABLE [outcome]
+-- DROP TABLE [exposure]
+-- DROP TABLE [age_group]
+-- DROP TABLE [source]
 
 
 
@@ -294,7 +294,24 @@ INSERT INTO source (name) VALUES ('Public health unit.csv')
 INSERT INTO source (name) VALUES ('Public Health Units GROUP.csv')
 INSERT INTO source (name) VALUES ('vaccines_by_age_phu.csv')
 
+SET IDENTITY_INSERT phu_group  ON
+GO
+INSERT INTO phu_group 
+    (id, phu_group_name, source_id) 
+    VALUES
+    (0, 'PHU groups outside Ontario', 2)
+SET IDENTITY_INSERT phu_group  OFF
+GO
 
+SET IDENTITY_INSERT phu_city  ON
+GO
+INSERT INTO phu_city 
+    (id, [name], phu_group_id, source_id) 
+    VALUES
+    (0, 'Cities outside Ontario', 0, 2)
+GO
+SET IDENTITY_INSERT phu_city  OFF
+GO
 -- DELETE FROM phu_city
 -- DELETE FROM phu_group
 -- DELETE FROM outbreak_group

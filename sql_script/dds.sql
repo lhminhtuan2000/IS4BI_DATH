@@ -27,12 +27,12 @@ GO
 
 CREATE TABLE dim_date
 (
-    id int IDENTITY,
+    id INT IDENTITY,
     
-    day_in_month tinyint,
-    month_in_year tinyint,
-    quarter_in_year tinyint,
-    [year] int,
+    day_in_month INT,
+    month_in_year INT,
+    quarter_in_year INT,
+    [year] INT,
 
     CONSTRAINT pk__dim_date PRIMARY KEY (id)
 )
@@ -60,6 +60,20 @@ CREATE TABLE dim_age_group
     age_group NVARCHAR(255),
 
     CONSTRAINT pk__dim_age_group PRIMARY KEY (id)
+)
+GO
+
+
+CREATE TABLE dim_vba_age_group
+(
+    id INT IDENTITY,
+
+    nds_id INT,
+
+    source_id INT,
+    age_group NVARCHAR(255),
+
+    CONSTRAINT pk__dim_vba_age_group PRIMARY KEY (id)
 )
 GO
 
@@ -131,6 +145,22 @@ CREATE TABLE fact_cases
 GO
 
 
+CREATE TABLE fact_vaccines
+(
+    phu_id INT,
+    vba_age_group_id INT,
+    date_id INT,
+    at_least_one_dose_cumulative INT,
+    second_dose_cumulative INT,
+    fully_vaccinated_cumulative INT,
+    third_dose_cumulative INT
+
+
+    CONSTRAINT pk__fact_vaccines PRIMARY KEY (phu_id, vba_age_group_id, date_id)
+)
+GO
+
+
 -- Generate dim_date table
 GO
 DECLARE @StartDate  date = '20200101';
@@ -173,6 +203,7 @@ SELECT TheDay,TheMonth,TheQuarter,TheYear FROM dim
 
 GO
 
+
 -- Add Foreign key
 
 ALTER TABLE dim_phu
@@ -202,4 +233,16 @@ ALTER TABLE fact_cases
 ALTER TABLE fact_cases
     ADD CONSTRAINT fk__fact_cases__dim_age_group FOREIGN KEY (age_group_id)
     REFERENCES dim_age_group (id)
+GO
+
+
+ALTER TABLE fact_vaccines
+    ADD CONSTRAINT fk__fact_vaccines__dim_phu FOREIGN KEY (phu_id)
+    REFERENCES dim_phu (id)
+ALTER TABLE fact_vaccines
+    ADD CONSTRAINT fk__fact_vaccines__dim_date FOREIGN KEY (date_id)
+    REFERENCES dim_date (id)
+ALTER TABLE fact_vaccines
+    ADD CONSTRAINT fk__fact_vaccines__dim_vba_age_group FOREIGN KEY (vba_age_group_id)
+    REFERENCES dim_vba_age_group (id)
 GO
