@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="3_NDS_DDS"
   DTS:PackageType="5"
-  DTS:VersionBuild="34"
-  DTS:VersionGUID="{BCE87A3A-CB35-452D-AEBF-5E605C523A01}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{AEDAED02-A2D0-47F5-B119-77AA01284BE2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -5767,54 +5767,54 @@ where [refTable].[nds_id] = ?</property>
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Add date, month, year Columns Based On reported date.Outputs[Derived Column Output]" />
                 <path
                   refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output4]"
-                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_gender Id.Inputs[Lookup Input]"
-                  name="Lookup Match Output"
-                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Outputs[Lookup Match Output]" />
-                <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output3]"
-                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_age_group Id.Inputs[Lookup Input]"
-                  name="Lookup Match Output"
-                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_gender Id.Outputs[Lookup Match Output]" />
-                <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output]"
-                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Inputs[Lookup Input]"
-                  name="Lookup Match Output"
-                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_phu Id.Outputs[Lookup Match Output]" />
-                <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output1]"
-                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_phu Id.Inputs[Lookup Input]"
-                  name="Lookup Match Output"
-                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_date Id.Outputs[Lookup Match Output]" />
-                <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output2]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add is_fatal, is_resolved Columns.Inputs[Derived Column Input]"
                   name="Lookup Match Output"
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_age_group Id.Outputs[Lookup Match Output]" />
                 <path
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output3]"
+                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_phu Id.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_date Id.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_gender Id.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output1]"
+                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_age_group Id.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_gender Id.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output2]"
+                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_phu Id.Outputs[Lookup Match Output]" />
+                <path
                   refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output4]"
+                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Exposure.Inputs[Derived Column Input]"
+                  name="Lookup No Match Output"
+                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Gender.Inputs[Derived Column Input]"
                   name="Lookup No Match Output"
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_gender Id.Outputs[Lookup No Match Output]" />
                 <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output]"
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output1]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Phu.Inputs[Derived Column Input]"
                   name="Lookup No Match Output"
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_phu Id.Outputs[Lookup No Match Output]" />
                 <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output1]"
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output2]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Age_group.Inputs[Derived Column Input]"
                   name="Lookup No Match Output"
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_age_group Id.Outputs[Lookup No Match Output]" />
                 <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output2]"
+                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output3]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Date.Inputs[Derived Column Input]"
                   name="Lookup No Match Output"
                   startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_date Id.Outputs[Lookup No Match Output]" />
-                <path
-                  refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output3]"
-                  endId="Package\Sequence Container fact_cases\fact_cases Flow\Add error_desription Exposure.Inputs[Derived Column Input]"
-                  name="Lookup No Match Output"
-                  startId="Package\Sequence Container fact_cases\fact_cases Flow\Lookup For dim_exposure Id.Outputs[Lookup No Match Output]" />
                 <path
                   refId="Package\Sequence Container fact_cases\fact_cases Flow.Paths[OLE DB Source Output]"
                   endId="Package\Sequence Container fact_cases\fact_cases Flow\Add date, month, year Columns Based On reported date.Inputs[Derived Column Input]"
@@ -7673,7 +7673,7 @@ where [refTable].[nds_id] = ?</property>
     design-time-name="Package\Sequence Container fact_cases\dim_exposure Flow">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="179,42"
           Id="Package\Sequence Container fact_cases\dim_exposure Flow\Load exposure (NDS)"
@@ -7701,9 +7701,7 @@ where [refTable].[nds_id] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -8191,7 +8189,7 @@ where [refTable].[nds_id] = ?</property>
           Id="Package\Sequence Container fact_cases\fact_cases Flow\Add severity Column"
           TopLeft="155.714285714286,969.571428571429" />
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output4]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output]"
           TopLeft="353.714285714286,602.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8215,7 +8213,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output3]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output4]"
           TopLeft="353.714285714286,500.071428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8239,7 +8237,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output2]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output3]"
           TopLeft="344.714285714286,285.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8263,7 +8261,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output1]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output2]"
           TopLeft="357.714285714286,707.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8287,7 +8285,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup No Match Output1]"
           TopLeft="345.714285714286,391.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8311,7 +8309,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output4]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output]"
           TopLeft="249.214285714286,519.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8335,7 +8333,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output3]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output1]"
           TopLeft="249.214285714286,622.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8359,7 +8357,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output2]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output4]"
           TopLeft="246.464285714286,725.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8383,7 +8381,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output1]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output3]"
           TopLeft="249.964285714286,304.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -8407,7 +8405,7 @@ where [refTable].[nds_id] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output]"
+          Id="Package\Sequence Container fact_cases\fact_cases Flow.Paths[Lookup Match Output2]"
           TopLeft="248.964285714286,409.571428571429">
           <EdgeLayout.Curve>
             <mssgle:Curve

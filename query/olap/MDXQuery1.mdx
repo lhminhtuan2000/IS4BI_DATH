@@ -1,0 +1,8 @@
+select 
+non empty [Dim Date].[Hierarchy].[Year] on columns, 
+non empty [Dim Phu].[Hierarchy].[Phu Name] on rows
+from [olap_1-2]
+where 
+[Measures].[Total Cases]
+--[Measures].[Total Fatal Cases]
+--[Measures].[Total Resolved Cases]

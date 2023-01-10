@@ -1,0 +1,6 @@
+select 
+non empty [Dim Date].[Hierarchy].[Year] on columns, 
+non empty crossjoin ([Dim Gender].[Hierarchy].[Gender],[Dim Age Group].[Hierarchy].[Age Group]) on rows
+from [olap_3]
+where 
+[Measures].[Total Fatal Cases]
